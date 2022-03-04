@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from posixpath import split
 import re
 from selectors import BaseSelector
