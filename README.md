@@ -20,7 +20,22 @@ příkazy k implementování:
 -jazyk implementace libovolný mezi angličtinou a češtinou
 -endpoint hash? jednoduché zabezpečení, né jméno a heslo
 
-## DSP
+## DSP (Dokument specifikace požadavků)
+
+### Uživatelské požadavky
+
+Serverový chatbot, s přístupem v prohlížečí, který bude odpovídat na dotazy v anglickém jazyce.
+Design webové stránky může být libovolný, důležitá je pouze funkcionalita. Musí však fungovat jak na telefonu, tabletu tak i na PC.
+Historii chatu si klient nepřeje.
+
+Dotazy budou:
+
+- help (na jaké dotazy dokáže bot odpovědět)
+- time (jaký je momentální serverový čas)
+- what is your name (jak se jmenuje bot)
+- euro exchange rate (dnešní kurz eura vůči české koruně)
+
+Dotazy má být možno jednoduše přidat a také modifikovat např. z EUR udělat USD apod.
 
 ### Přehled
 
@@ -37,3 +52,5 @@ příkazy k implementování:
 #### Interfaces
 
 ### Implementace
+
+> @KNajman 2022
