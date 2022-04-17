@@ -30,10 +30,7 @@ Aplikace chatbota má dvě části: klientskou, která zprostředkovává grafic
 | vypsání jména chatbota | name | Hi, nice to meet you! My name is $chatbot_name | $chatbot_name je proměná, kde bude určeno, jak se chatbot jmenuje |
 | vypsání času na serveru | time | The time is $HH:MM:SS, at least at my place. | $HH:MM:SS, je proměná ukazující aktuální čas na serveru, zároveň by časměl být zobrazen v tomto fotmátu |
 | vypsání kurzu EURA s možností vypsat i zpětně | exchnge rate, euro, exchange | Exchange rate is $rate CZK for 1 EUR/On $date the exchnage rate was $rate CZK for 1 EUR | proměná $rate říka kurz koruny k euru, proměná $DD.MM.YYY se řídí tím, že pokud zadal užiatel datum vypíše mu k danému dni kurz |
-| vypsání nápovědy | help | Here is what I can do:
-- help - I tell you, what I can do
-- time -  I tel you, what time is it, at least at my place.
-- exchange rate - I tell you an exchange rate betwean EUR and CZK |  |
+| vypsání nápovědy | help | Here is what I can do: -help - I tell you, what I can do - time -  I tel you, what time is it, at least at my place. - exchange rate - I tell you an exchange rate betwean EUR and CZK |  |
 
 ### Další požadavky
 
