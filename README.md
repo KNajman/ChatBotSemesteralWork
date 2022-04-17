@@ -20,13 +20,10 @@ příkazy k implementování:
 -jazyk implementace libovolný mezi angličtinou a češtinou
 -endpoint hash? jednoduché zabezpečení, né jméno a heslo
 
-## DSP (Dokument specifikace požadavků)
+### Požadavky zákazníka
 
-### Uživatelské požadavky
-
-Serverový chatbot, s přístupem v prohlížečí, který bude odpovídat na dotazy v anglickém jazyce.
-Design webové stránky může být libovolný, důležitá je pouze funkcionalita. Musí však fungovat jak na telefonu, tabletu tak i na PC.
-Historii chatu si klient nepřeje.
+Serverový chatbot, s přístupem v prohlížečí, který bude  odpovídat na dotazy v anglickém jazyce nebo českém.
+Design webové stránky může být libovolný, důležitá je pouze  funkcionalita. Musí však fungovat jak na telefonu, tabletu tak i na PC. Historii chatu si klient nepřeje.
 
 Dotazy budou:
 
@@ -37,20 +34,7 @@ Dotazy budou:
 
 Dotazy má být možno jednoduše přidat a také modifikovat např. z EUR udělat USD apod.
 
-### Přehled
-
-### Použit
-
-### Setup
-
-### Testování
-
-### Konfigurace
-
-### Specifikace
-
-#### Interfaces
-
-### Implementace
+## DSP (Dokument specifikace požadavků)
+[DSP dokument na tomto odkaze](./DSP.md)
 
 > @KNajman 2022
