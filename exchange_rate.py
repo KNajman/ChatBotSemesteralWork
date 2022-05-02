@@ -1,29 +1,58 @@
-from datetime import datetime, date
-from urllib import response
+from datetime import datetime
+from numpy import double
 import requests
-import re
 
 
-def lines_that_contain(string, fp):
-    return [line for line in fp if string in line]
+def exchange_rate(date: str, currency: str):
+    """
+    INPUT:
+    date in format as %d.%m.%Y
+    currency as string in format 'EUR', 'USD', 'GBP' etc.
 
-def exchange_rate(d, currency:str):
-    url="https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;jsessionid=7F4C32D076912ACA29A0C575F86392AB?date="
-    full_url = url+str(d)
+    RETURN:
+    exchange rate for the given currency on a specific date
+    """
+    url = "https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/denni_kurz.txt;?date="
+    date_format = "%d.%m.%Y"
 
-    response=requests.get(full_url)
+    try:
+        datetime.strptime(date, date_format)
+    except ValueError:
+        raise ValueError("Incorrect date format. It should be dd.mm.yyyy")
+
+    url += date
+    if len(currency) != 3:
+        raise ValueError(
+            "Incorrect currency format. It should be 3 letters as 'EUR', 'USD', 'GBP' etc.")
+
+    response = requests.get(url)
     data = response.text
-    line_split=data.split()
+    line_split = data.split()
     for line in line_split:
         if currency in line:
-            correct_line=line
-    rate=correct_line.split('|')
+            correct_line = line
+    rate = correct_line.split("|")
+
+    if rate == "":
+        raise ValueError("Unknown currency.")
+
     return rate[-1]
 
-datum = datetime.now().strftime("%d.%m.%Y")
+
+def save_exchange_rate_in_file(rate : double, file_name):
+    """
+    saves exchange rate in file
+    """
+    
+    with open(file_name, mode="a", encoding="utf-8") as file:
+        d=datetime.now().strftime("%d.%m.%Y")
+        file.write(d + " " + rate + "\n")
 
 
-"""
-#TEST
-print(exchange_rate("25.02.2022", 'EUR'))
-"""
+if __name__ == "__main__":
+    datum = datetime.now().strftime("%d.%m.%Y")
+
+    rate=exchange_rate(datum, "EUR")
+    print(rate)
+
+    save_exchange_rate_in_file(rate, "exchange_rate.txt")
