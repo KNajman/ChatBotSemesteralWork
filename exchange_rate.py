@@ -1,5 +1,5 @@
 from datetime import datetime
-from numpy import double
+from numpy import double, floating
 import requests
 
 
@@ -23,7 +23,8 @@ def exchange_rate(date: str, currency: str):
     url += date
     if len(currency) != 3:
         raise ValueError(
-            "Incorrect currency format. It should be 3 letters as 'EUR', 'USD', 'GBP' etc.")
+            "Incorrect currency format. It should be 3 letters as 'EUR', 'USD', 'GBP' etc."
+        )
 
     response = requests.get(url)
     data = response.text
@@ -39,20 +40,22 @@ def exchange_rate(date: str, currency: str):
     return rate[-1]
 
 
-def save_exchange_rate_in_file(rate : double, file_name):
+def save_exchange_rate_in_file(rate: float, file_name):
     """
     saves exchange rate in file
     """
-    
+    if rate == "":
+        raise ValueError("Rate was not specified.")
+
     with open(file_name, mode="a", encoding="utf-8") as file:
-        d=datetime.now().strftime("%d.%m.%Y")
-        file.write(d + " " + rate + "\n")
+        d = datetime.now().strftime("%d.%m.%Y")
+        file.write(d + " " + str(rate) + "\n")
 
 
 if __name__ == "__main__":
     datum = datetime.now().strftime("%d.%m.%Y")
 
-    rate=exchange_rate(datum, "EUR")
+    rate = exchange_rate(datum, "EUR")
     print(rate)
 
     save_exchange_rate_in_file(rate, "exchange_rate.txt")
