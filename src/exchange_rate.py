@@ -1,5 +1,4 @@
 from datetime import datetime
-from numpy import double, floating
 import requests
 
 
