@@ -35,7 +35,7 @@ def check_all_messages(message):
     response('Hello!', ['hello', 'hi', 'hey'], single_response=True)
     response('Time is: '+str(datetime.now().strftime("%H:%M:%S")),['what is the', 'time'], required_words=['time'])
     response('Zobraz mozne prikazy', ['help', '-h', '--help'])
-    response('I am a bot', ['what is', 'your', 'name?', 'what is', 'tell me'], required_words=['name'])
+    response('I am a bot', ['what is', 'your', 'name', 'what is', 'tell me'], required_words=['name'])
     response('pica pica pica',['mrdat', 'cecky', 'vole'], required_words=['mrdat', 'cecky', 'vole'])
 
     best_match = max(highest_prob_list, key=highest_prob_list.get)
