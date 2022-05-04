@@ -1,12 +1,9 @@
 from datetime import datetime
 import re
-import long_responses as long
-import exchange_rate as ex
+import src.long_responses as long
+import src.exchange_rate as ex
 
-
-def message_probability(
-    user_message, recognised_words, single_response=False, required_words=[]
-):
+def message_probability(user_message :list, recognised_words: list, single_response=False, required_words=[]):
     message_certainty = 0
     has_required_words = True
 
@@ -27,37 +24,20 @@ def message_probability(
         return 0
 
 
-def check_all_messages(message):
+def check_all_messages(message : list):
     highest_prob_list = {}
 
-    def response(bot_response, list_of_words, single_response=False, required_words=[]):
+    def response(bot_response : str, list_of_words : list, single_response=False, required_words=[]):
         nonlocal highest_prob_list
-        highest_prob_list[bot_response] = message_probability(
-            message, list_of_words, single_response, required_words
-        )
+        highest_prob_list[bot_response] = message_probability(message, list_of_words, single_response, required_words)
 
     # REPONSES---------------------------------------------------------------------------------------------------------
     response("Hello!", ["hello", "hi", "hey"], single_response=True)
-    response(
-        "Time is: " + str(datetime.now().strftime("%H:%M:%S")),
-        ["what is the", "time"],
-        required_words=["time"],
-    )
-    response(
-        long.help(),
-        ["Can you help me", "I need help", "help", "what can you do", "h"],
-        single_response=True,
-    )
-    response(
-        "My name is Bob",
-        ["what is", "your", "name", "tell me"],
-        required_words=["name"],
-    )
-    response(
-        ex.exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") + " Kč/1EUR",
-        ["exchange rate eur", "eur"],
-        required_words=["eur"],
-    )
+    response("Time is: " + str(datetime.now().strftime("%H:%M:%S")),["what is the", "time"],required_words=["time"])
+    response(long.help(),["Can you help me", "I need help", "help", "what can you do", "h"],single_response=True)
+    response("My name is Bob",["what is", "your", "name", "tell me"],required_words=["name"])
+    response(ex.exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") + " Kč/1EUR",["exchange rate eur", "eur"],required_words=["eur"])
+
 
     best_match = max(highest_prob_list, key=highest_prob_list.get)
     # print(highest_prob_list)
@@ -66,7 +46,7 @@ def check_all_messages(message):
 
 
 def get_response(user_input: str):
-    split_message = re.split(r"\s+|[,;?!.-]\s*", user_input.lower())
+    split_message = re.split(r"\s+|[,;?!.-]\s*", str(user_input).lower())
     response = check_all_messages(split_message)
     return response
 
