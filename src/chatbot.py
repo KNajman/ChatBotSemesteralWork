@@ -1,7 +1,8 @@
 from datetime import datetime
 import re
-import src.long_responses as long
-import src.exchange_rate as ex
+
+from src.exchange_rate import exchange_rate
+from src.long_responses import *
 
 def message_probability(user_message :list, recognised_words: list, single_response=False, required_words=[]):
     message_certainty = 0
@@ -34,15 +35,15 @@ def check_all_messages(message : list):
     # REPONSES---------------------------------------------------------------------------------------------------------
     response("Hello!", ["hello", "hi", "hey"], single_response=True)
     response("Time is: " + str(datetime.now().strftime("%H:%M:%S")),["what is the", "time"],required_words=["time"])
-    response(long.help(),["Can you help me", "I need help", "help", "what can you do", "h"],single_response=True)
+    response(help(),["Can you help me", "I need help", "help", "what can you do", "h"],single_response=True)
     response("My name is Bob",["what is", "your", "name", "tell me"],required_words=["name"])
-    response(ex.exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") + " Kč/1EUR",["exchange rate eur", "eur"],required_words=["eur"])
+    response(exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") + " Kč/1EUR",["exchange rate eur", "eur"],required_words=["eur"])
 
 
     best_match = max(highest_prob_list, key=highest_prob_list.get)
     # print(highest_prob_list)
 
-    return long.unknown() if highest_prob_list[best_match] < 1 else best_match
+    return unknown() if highest_prob_list[best_match] < 1 else best_match
 
 
 def get_response(user_input: str):
