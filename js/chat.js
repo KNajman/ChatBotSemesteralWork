@@ -1,88 +1,59 @@
-class Chatbox {
-    constructor() {
-        this.args = {
-            openButton: document.querySelector('.chatbox__button'),
-            chatBox: document.querySelector('.chatbox__support'),
-            sendButton: document.querySelector('.send__button')
-        }
+window.onload = firstBotMessage;
 
-        this.state = false;
-        this.messages = [];
+inputId = document.getElementById('chat-input');
+inputId.addEventListener('keyup', function onEvent(e) {
+    if (e.keyCode === 13) {
+        sendReply()
     }
+});
 
-    display() {
-        const { openButton, chatBox, sendButton } = this.args;
-
-        openButton.addEventListener('click', () => this.toggleState(chatBox))
-
-        sendButton.addEventListener('click', () => this.onSendButton(chatBox))
-
-        const node = chatBox.querySelector('input');
-        node.addEventListener("keyup", ({ key }) => {
-            if (key === "Enter") {
-                this.onSendButton(chatBox)
-            }
-        })
-    }
-
-    toggleState(chatbox) {
-        this.state = !this.state;
-
-        // show or hides the box
-        if (this.state) {
-            chatbox.classList.add('chatbox--active')
-        } else {
-            chatbox.classList.remove('chatbox--active')
-        }
-    }
-
-    onSendButton(chatbox) {
-        var textField = chatbox.querySelector('input');
-        let input_from_user = textField.value
-        if (input_from_user === "") {
-            return;
-        }
-
-        let msg1 = { name: "User", message: input_from_user }
-        this.messages.push(msg1);
-
-        fetch('http://127.0.0.1:5000/predict', {
-                method: 'POST',
-                body: JSON.stringify({ message: input_from_user }),
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(r => r.json())
-            .then(r => {
-                let msg2 = { name: "Bob", message: r.answer };
-                this.messages.push(msg2);
-                this.updateChatText(chatbox)
-                textField.value = ''
-
-            }).catch((error) => {
-                console.error('Error:', error);
-                this.updateChatText(chatbox)
-                textField.value = ''
-            });
-    }
-
-    updateChatText(chatbox) {
-        var html = '';
-        this.messages.slice().reverse().forEach(function(item, index) {
-            if (item.name === "Bob") {
-                html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
-            } else {
-                html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
-            }
-        });
-
-        const chatmessage = chatbox.querySelector('.chatbox__messages');
-        chatmessage.innerHTML = html;
-    }
+// initial message from the bot
+function firstBotMessage() {
+    let firstMessage = "How's it going? Type help for a list of commands."
+    document.getElementById("msg").innerHTML = '<p class="username">Chatbot</p><p>' + firstMessage + '</p>'
 }
 
 
-const chatbox = new Chatbox();
-chatbox.display();
+// parse message from the user and fetch the response from the bot
+function sendReply() {
+    let message = document.getElementById('chat-input').value
+    message = message.replace(/<[^>]+>.?/g, '')
+    if (message != '') {
+        newMessage(message, 'User', true)
+    }
+    let chatinput = document.getElementById('chat-input')
+    document.getElementById('chat-input').value = ""
+    document.getElementById('inputbox').scrollIntoView({ block: 'end', behavior: 'smooth' })
+
+    fetch('http://127.0.0.1:5000/predict', {
+            method: 'POST',
+            body: JSON.stringify({ message: message }),
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }) //change this to the url of the json file
+        .then(response => response.json())
+        .then(response => {
+            newMessage(response.answer, 'Chatbot', false)
+        })
+}
+
+// display messages from the bot and user
+function newMessage(text, user, darker) {
+    var newDiv = document.createElement('div')
+    newDiv.id = 'msg'
+    if (darker) {
+        newDiv.className = 'container darker'
+    } else {
+        newDiv.className = 'container'
+    }
+    newDiv.innerHTML = '<p class="username">' + user + '</p><p>' + text + '</p>'
+    let lastDiv = document.getElementById("chatbox").lastChild
+    insertAfter(lastDiv, newDiv)
+}
+
+// helper function to insert a new element after a given element
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
+}
