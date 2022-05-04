@@ -1,7 +1,7 @@
 from datetime import datetime
 import re
-import src.long_responses as long
-import src.exchange_rate as ex
+import long_responses as long
+import exchange_rate as ex
 
 def message_probability(user_message :list, recognised_words: list, single_response=False, required_words=[]):
     message_certainty = 0
