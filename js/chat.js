@@ -25,7 +25,7 @@ function sendReply() {
     document.getElementById('chat-input').value = ""
     document.getElementById('inputbox').scrollIntoView({ block: 'end', behavior: 'smooth' })
 
-    fetch('http://127.0.0.1:5000/predict', {
+    fetch('https://chatbot-bob.onrender.com/predict', {
             method: 'POST',
             body: JSON.stringify({ message: message }),
             mode: 'cors',
