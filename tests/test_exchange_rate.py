@@ -1,6 +1,6 @@
 from datetime import datetime
 import os
-from src.exchange_rate import *
+from exchange_rate import *
 import pytest
 
 def test_exchange_rate_with_02_05_2022_rate_EUR():

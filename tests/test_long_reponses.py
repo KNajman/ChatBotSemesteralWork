@@ -1,5 +1,5 @@
 import pytest
-from src.long_responses import *
+from long_responses import *
 
 def test_long_responses_help():
     assert help() != ""

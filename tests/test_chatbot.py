@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytest
-from src.chatbot import *
-from src.exchange_rate import exchange_rate
+from chatbot import *
+from exchange_rate import exchange_rate
 
 
 def test_chatbot_response_greeting():
