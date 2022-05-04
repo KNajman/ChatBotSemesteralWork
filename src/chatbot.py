@@ -4,7 +4,9 @@ import long_responses as long
 import exchange_rate as ex
 
 
-def message_probability(user_message, recognised_words, single_response=False, required_words=[]):
+def message_probability(
+    user_message, recognised_words, single_response=False, required_words=[]
+):
     message_certainty = 0
     has_required_words = True
 
@@ -35,15 +37,27 @@ def check_all_messages(message):
         )
 
     # REPONSES---------------------------------------------------------------------------------------------------------
-    response("Hello!", ["hello", "hi", "hey"], single_response=False)
-    response("Time is: " + str(datetime.now().strftime("%H:%M:%S")),
-             ["what is the", "time"], single_response=True, required_words=["time"])
-    response("Commands that I can process are: help, name, time, eur, eur history", [
-             "Can you help me", "I need help", "help"], required_words=["help"])
-    response("My name is Bob", ["what is", "your", "name",
-             "tell me"], single_response=True, required_words=["name"])
-    response(ex.exchange_rate(datetime.now().strftime("%d.%m.%Y"), 'EUR') + " Kč/1EUR",
-             ["exchange rate", "eur"], single_response=True, required_words=["eur"])
+    response("Hello!", ["hello", "hi", "hey"], single_response=True)
+    response(
+        "Time is: " + str(datetime.now().strftime("%H:%M:%S")),
+        ["what is the", "time"],
+        required_words=["time"],
+    )
+    response(
+        long.help(),
+        ["Can you help me", "I need help", "help", "what can you do", "h"],
+        single_response=True,
+    )
+    response(
+        "My name is Bob",
+        ["what is", "your", "name", "tell me"],
+        required_words=["name"],
+    )
+    response(
+        ex.exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") + " Kč/1EUR",
+        ["exchange rate eur", "eur"],
+        required_words=["eur"],
+    )
 
     best_match = max(highest_prob_list, key=highest_prob_list.get)
     # print(highest_prob_list)
@@ -59,4 +73,4 @@ def get_response(user_input: str):
 
 if __name__ == "__main__":
     while True:
-        print('Bot: ' + get_response(input('You: ')))
+        print("Bot: " + get_response(input("You: ")))
