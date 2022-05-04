@@ -53,4 +53,4 @@ Dotazy má být možno jednoduše přidat a také modifikovat např. z EUR uděl
 
 ### Implementace
 
-> @KNajman 2022
+> @KNajman @kindejak 2022
