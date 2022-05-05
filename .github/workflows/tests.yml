@@ -31,10 +31,9 @@ jobs:
         # Run the tests. I'm using pytest and the file is in the tests directory.
       - name: Run tests
         run: pytest --cov=./ --cov-report=xml
-      - uses: actions/checkout@master
         #Run code coverage
       - name: Upload coverage reports to Codecov with GitHub Action
-      - uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2
         with:
           flags: unittests # optional
           fail_ci_if_error: false # optional (default = false)
