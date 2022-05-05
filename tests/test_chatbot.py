@@ -14,7 +14,7 @@ def test_chatbot_response_name():
 
 def test_chatbot_response_eur():
     assert get_response("What is the exchange rate for eur today?") == str(
-        exchange_rate(datetime.now().strftime("%d.%m.%Y"), "eur"))+" Kč/1EUR"
+        exchange_rate(datetime.now().strftime("%d.%m.%Y"), "eur"))+"Kč/1EUR"
 
 
 def test_chatbot_response_wrong_input():

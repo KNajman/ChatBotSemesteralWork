@@ -1,6 +1,6 @@
 from datetime import datetime
 from exchange_rate import exchange_rate
-from long_responses import unknown, help
+from long_responses import unknown, help, past_exchange_rates
 import re
 
 def message_probability(user_message: list, recognised_words: list, single_response=False, required_words=[]):
@@ -40,9 +40,8 @@ def check_all_messages(message: list):
              "help", "what can you do", "h"], single_response=True)
     response("My name is Bob", ["what is", "your",
              "name", "tell me"], required_words=["name"])
-    response(exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") +
-             " Kč/1EUR", ["exchange rate eur", "eur"], required_words=["eur"])
-
+    response(exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") +"Kč/1EUR", ["exchange rate eur", "eur", "eur rate"])
+    response(past_exchange_rates("EUR"), ["history","exchange rate eur history", "history eur"])
     best_match = max(highest_prob_list, key=highest_prob_list.get)
     # print(highest_prob_list)
 

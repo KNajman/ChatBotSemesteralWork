@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 
 
@@ -50,11 +50,23 @@ def save_exchange_rate_in_file(rate: float, file_name):
         d = datetime.now().strftime("%d.%m.%Y")
         file.write(d + " " + str(rate) + "\n")
 
+def past_5_dates(curr_time: datetime, limit_time="15:00:00"):
+    dates_list = list()
+    if(curr_time.strftime("%H:%M") > limit_time):
+        start = 0
+        stop = 5
+    else:
+        start = 1
+        stop = 6
+        for i in range(start, stop):
+            date_without_format = datetime.now() - timedelta(days=i)
+            dates_list.append(date_without_format.strftime("%d.%m.%Y"))
+    return reversed(dates_list)
+
 
 if __name__ == "__main__":
     datum = datetime.now().strftime("%d.%m.%Y")
 
     rate = exchange_rate(datum, "EUR")
     print(rate)
-
-    save_exchange_rate_in_file(rate, "exchange_rate.txt")
+    ##save_exchange_rate_in_file(rate, "exchange_rate.txt")
