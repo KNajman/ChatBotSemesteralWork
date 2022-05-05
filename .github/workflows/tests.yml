@@ -29,4 +29,12 @@ jobs:
           pip install -r requirements.txt
         # Run the tests. I'm using pytest and the file is in the tests directory.
       - name: Run tests        
-        run: export PYTHONPATH=.; pytest
+        run: export PYTHONPATH=.; pytest¨
+      - uses: actions/checkout@master
+        #Run code coverage
+      - name: Upload coverage reports to Codecov with GitHub Action
+      - uses: codecov/codecov-action@v2
+        with:
+          flags: unittests # optional
+          fail_ci_if_error: false # optional (default = false)
+          verbose: true # optional (default = false)  
