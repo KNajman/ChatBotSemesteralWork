@@ -3,6 +3,8 @@ from exchange_rate import exchange_rate
 from long_responses import unknown, help, past_exchange_rates
 import re
 
+from purchase_recommendation import purchase_recommendation
+
 def message_probability(user_message: list, recognised_words: list, single_response=False, required_words=[]):
     message_certainty = 0
     has_required_words = True
@@ -40,8 +42,11 @@ def check_all_messages(message: list):
              "help", "what can you do", "h"], single_response=True)
     response("My name is Bob", ["what is", "your",
              "name", "tell me"], required_words=["name"])
-    response(exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") +"Kč/1EUR", ["exchange rate eur", "eur", "eur rate"])
-    response(past_exchange_rates("EUR"), ["history","exchange rate eur history", "history eur"])
+    response(exchange_rate(datetime.now().strftime("%d.%m.%Y"), "EUR") +"Kč/1EUR", ["exchange", "rate", "eur"])
+    response(past_exchange_rates("EUR"), ["history", "eur"])
+    
+    response(purchase_recommendation("EUR"), ["purchase", "recommendation"])
+    
     best_match = max(highest_prob_list, key=highest_prob_list.get)
     # print(highest_prob_list)
 
@@ -52,7 +57,6 @@ def get_response(user_input: str):
     split_message = re.split(r"\s+|[,;?!.-]\s*", str(user_input).lower())
     response = check_all_messages(split_message)
     return response
-
 
 if __name__ == "__main__":
     while True:
