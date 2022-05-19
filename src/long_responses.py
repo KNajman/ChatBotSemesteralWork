@@ -5,7 +5,7 @@ import exchange_rate as er
 
 def help():
     long_response = (
-        "Commands that I can proced are: 'help' 'name', 'time', 'name', 'eur'/ 'exchange rate eur' ")
+        "Commands that I can proced are: 'help' 'name', 'time', 'exchange rate eur', 'history eur', 'purchase recommendation eur ")
     return long_response
 
 
