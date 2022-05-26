@@ -10,6 +10,9 @@
 
 metoda je závislá na dříve implemetovaných funkcích a to **exchange_rate** a **rate_history**
 
-### Problémy
+## Rozšíření funkcionality help o nový příkaz
+'purchase recommendation eur'
+
+## Předpokládané problémy implementace
 
 - víkendový kurz a kurz o svátcích je stejný jako přecházející den, při výpočtu průměrného kurzu je tedy potřeba tyto dny nebrat v potaz
