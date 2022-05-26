@@ -27,4 +27,5 @@ Implementované příkazy:
 ## DSP (Dokument specifikace požadavků)
 
 [DSP dokument na tomto odkaze](./DSP.md)
+[Rozšíření DSP na tomto odkaze[(.DSP_extension.md)
 > @KNajman 2022
