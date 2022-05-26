@@ -11,6 +11,7 @@
 metoda je závislá na dříve implemetovaných funkcích a to **exchange_rate** a **rate_history**
 
 ## Rozšíření funkcionality help o nový příkaz
+
 'purchase recommendation eur'
 
 ## Předpokládané problémy implementace

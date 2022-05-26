@@ -5,7 +5,13 @@ import exchange_rate as er
 
 def help():
     long_response = (
-        "Commands that I can proced are: 'help' 'name', 'time', 'exchange rate eur', 'history eur', 'purchase recommendation eur ")
+        "Commands that I can proced are:\n" 
+        + "'help'\n"
+        + "'name'\n" 
+        + "'time'\n" 
+        + "'exchange rate eur'\n" 
+        + "'history eur'\n" 
+        + "'purchase recommendation eur'")
     return long_response
 
 
@@ -27,3 +33,6 @@ def past_exchange_rates(currency: str):
     for d in dates:        
         long_response+=str(d + " | "+er.exchange_rate(d, currency)+"Kč/1EUR" + "\n")
     return long_response
+
+if __name__ == "__main__":
+    print(past_exchange_rates('EUR'))
